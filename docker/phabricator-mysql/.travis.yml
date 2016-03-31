@@ -1,0 +1,19 @@
+language: c
+
+sudo: false
+
+services:
+  - docker
+
+cache:
+  apt: true
+
+script:
+  - make
+
+after_success:
+  - make push
+
+notifications:
+  email: true
+
