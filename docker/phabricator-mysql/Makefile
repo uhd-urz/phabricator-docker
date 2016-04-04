@@ -27,7 +27,7 @@ COMMIT=
 endif
 endif
 
-build: stopwords.txt
+build .build_succeed: stopwords.txt
 	docker build --tag=$(PACKAGE):latest .
 ifdef BRANCH
 	# git-branch -> docker-tag
@@ -41,8 +41,9 @@ ifdef COMMIT
 	# git-commit -> docker-tag
 	docker tag $(PACKAGE):latest $(PACKAGE):$(COMMIT)
 endif
+	touch .build_succeed
 
-push: build
+push: .build_succeed
 	docker login --email="$${DOCKER_EMAIL}" --username="$${DOCKER_USERNAME}" --password="$${DOCKER_PASSWORD}"
 	docker push $(PACKAGE)
 
