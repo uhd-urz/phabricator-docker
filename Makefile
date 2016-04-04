@@ -2,18 +2,18 @@ SUBDIRS:=docker
 
 all: build
 
-SUBDIRS_BUILD:=$(subst %,%@build,$(SUBDIRS))
+SUBDIRS_BUILD:=$(patsubst %,%@build,$(SUBDIRS))
 
 build: $(SUBDIRS_BUILD)
 
 $(SUBDIRS_BUILD):
-	$(MAKE) -C $@ build
+	$(MAKE) -C $(subst @build,,$@) build
 
-SUBDIRS_PUSH:=$(subst %,%@push,$(SUBDIRS))
+SUBDIRS_PUSH:=$(patsubst %,%@push,$(SUBDIRS))
 
 push: $(SUBDIRS_PUSH)
 
 $(SUBDIRS_PUSH):
-	$(MAKE) -C $@ push
+	$(MAKE) -C $(subst @push,,$@) push
 
 .PHONY: $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH)
