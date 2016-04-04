@@ -1,0 +1,6 @@
+[submodule "phabricator"]
+	path = source/phabricator
+	url = https://github.com/uhd-urz/phabricator.git
+[submodule "libphutil"]
+	path = source/libphutil
+	url = https://github.com/uhd-urz/libphutil.git
