@@ -4,3 +4,9 @@
 [submodule "libphutil"]
 	path = source/libphutil
 	url = https://github.com/uhd-urz/libphutil.git
+[submodule "source/mod_auth_gssapi"]
+	path = source/mod_auth_gssapi
+	url = https://github.com/uhd-urz/mod_auth_gssapi.git
+[submodule "source/phabricator-extensions-sprint"]
+	path = source/phabricator-extensions-sprint
+	url = https://github.com/wikimedia/phabricator-extensions-sprint.git
