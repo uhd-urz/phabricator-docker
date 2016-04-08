@@ -10,3 +10,15 @@
 [submodule "source/phabricator-extensions-sprint"]
 	path = source/phabricator-extensions-sprint
 	url = https://github.com/wikimedia/phabricator-extensions-sprint.git
+[submodule "source/PHPExcel"]
+	path = source/PHPExcel
+	url = https://github.com/PHPOffice/PHPExcel.git
+[submodule "source/arcanist"]
+	path = source/arcanist
+	url = https://github.com/phacility/arcanist.git
+[submodule "source/phabricator-extensions-remoteuser"]
+	path = source/phabricator-extensions-remoteuser
+	url = https://github.com/uhd-urz/phabricator-extensions-remoteuser.git
+[submodule "source/phabricator-extensions-urz"]
+	path = source/phabricator-extensions-urz
+	url = https://github.com/uhd-urz/phabricator-extensions-urz.git
