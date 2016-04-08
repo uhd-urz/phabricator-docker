@@ -29,7 +29,8 @@ VOLUME /srv/phabricator/repo/ /srv/phabricator/storage/
 WORKDIR /opt/phabricator/phabricator
 
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 9000
+USER www-data
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--nodaemonize", "--fpm-config", "/etc/php5/fpm/php-fpm.conf"]
