@@ -17,3 +17,5 @@ $(SUBDIRS_PUSH):
 	$(MAKE) -C $(subst @push,,$@) push
 
 .PHONY: $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH)
+
+-include Makefile.local
