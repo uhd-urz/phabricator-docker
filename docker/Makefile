@@ -1,4 +1,4 @@
-SUBDIRS:=phabricator-mysql phabricator-httpd phabricator-base phabricator-fpm
+SUBDIRS:=phabricator-mysql phabricator-httpd phabricator-base phabricator-fpm phabricator-phd
 
 all: build
 

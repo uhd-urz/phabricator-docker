@@ -1,0 +1,21 @@
+FROM urzds/phabricator-base
+MAINTAINER Dennis Schridde <dennis.schridde@uni-heidelberg.de>
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN useradd -m -d /var/lib/phd phd \
+	&& usermod -aG phd www-data \
+	&& mkdir /srv/phabricator \
+	&& umask 0007 \
+	&& mkdir /srv/phabricator/repo/ /srv/phabricator/storage/ \
+	&& chown phd: /srv/phabricator/repo/ \
+	&& chown www-data: /srv/phabricator/storage/
+
+VOLUME /srv/phabricator/repo/ /srv/phabricator/storage/
+
+WORKDIR /opt/phabricator/phabricator/
+
+COPY entrypoint.sh /entrypoint.sh
+
+USER phd
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["start"]
