@@ -12,6 +12,7 @@ script:
   - make
 
 after_success:
+  - docker login --email="${DOCKER_EMAIL}" --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
   - make push
 
 notifications:

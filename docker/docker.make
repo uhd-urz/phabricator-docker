@@ -43,7 +43,6 @@ endif
 	touch .build_succeed
 
 push: .build_succeed
-	docker login --email="$${DOCKER_EMAIL}" --username="$${DOCKER_USERNAME}" --password="$${DOCKER_PASSWORD}"
 	docker push $(PACKAGE)
 
 .PHONY: build push
