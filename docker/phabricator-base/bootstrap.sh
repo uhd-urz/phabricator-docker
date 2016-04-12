@@ -27,4 +27,4 @@ echo ">> Configuration:"
 cat conf/local/local.json
 
 echo ">> Upgrading database ..."
-./bin/storage upgrade --force
+./bin/storage upgrade --force --user "${MYSQL_USER}" --password "${MYSQL_PASSWORD}"
