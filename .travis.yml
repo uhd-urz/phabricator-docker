@@ -12,9 +12,9 @@ script:
   - docker login --email="${DOCKER_EMAIL}" --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
   - make
 
-after_success:
-  - docker login --email="${DOCKER_EMAIL}" --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
-  - make push
+deploy:
+  provider: script
+  script: ./deploy.sh
 
 notifications:
   email: true
