@@ -1,8 +1,8 @@
 PACKAGE:=phabricator-mysql
+DEPENDENCIES:=stopwords.txt
 
 include ../docker.make
 
-build: stopwords.txt
 
 stopwords.txt: $(TOPDIR)/source/phabricator/resources/sql/stopwords.txt
 	cp -a $< $@

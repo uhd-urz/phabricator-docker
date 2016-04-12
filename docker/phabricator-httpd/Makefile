@@ -1,8 +1,8 @@
 PACKAGE:=phabricator-httpd
+DEPENDENCIES:=mod_auth_gssapi conf/mods-available/auth_gssapi.load webroot webroot/rsrc/sprint
 
 include ../docker.make
 
-build: mod_auth_gssapi conf/mods-available/auth_gssapi.load webroot webroot/rsrc/sprint
 
 mod_auth_gssapi: ../build_mod_auth_gssapi/target
 	rsync -av --delete $</ $@/
