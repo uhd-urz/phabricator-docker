@@ -26,9 +26,7 @@ COMMIT=
 endif
 endif
 
-build: .build_succeed
-
-.build_succeed: $(DEPENDENCIES)
+build: $(DEPENDENCIES)
 	docker build --tag=$(PACKAGE):latest .
 ifdef BRANCH
 	# git-branch -> docker-tag
@@ -42,9 +40,8 @@ ifdef COMMIT
 	# git-commit -> docker-tag
 	docker tag $(PACKAGE):latest $(PACKAGE):$(COMMIT)
 endif
-	touch $@
 
-push: .build_succeed
+push:
 	docker push $(PACKAGE)
 
 .PHONY: build push
