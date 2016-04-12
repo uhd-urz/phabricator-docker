@@ -25,3 +25,5 @@ webroot: ../../source/phabricator/webroot
 
 webroot/rsrc/sprint: ../../source/phabricator-extensions-sprint/rsrc webroot
 	rsync -av --delete $</ $@/
+
+.PHONY: mod_auth_gssapi ../build_mod_auth_gssapi/target
