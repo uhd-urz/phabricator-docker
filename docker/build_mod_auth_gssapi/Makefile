@@ -3,7 +3,7 @@ ifdef DOCKER_USERNAME
 PACKAGE:=$(DOCKER_USERNAME)/$(PACKAGE)
 endif
 
-MOD_AUTH_GSSAPI_VERSION:=$(shell env GIT_DIR=../../source/mod_auth_gssapi/.git git describe --tags)
+MOD_AUTH_GSSAPI_VERSION:=$(shell env GIT_DIR=../../source/mod_auth_gssapi/.git git describe --tags --dirty)
 ifeq ($(MOD_AUTH_GSSAPI_VERSION),)
 $(error Unable to determine MOD_AUTH_GSSAPI_VERSION)
 endif
