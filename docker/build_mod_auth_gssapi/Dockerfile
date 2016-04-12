@@ -6,10 +6,14 @@ RUN apt-get -y update && apt-get -y install build-essential autoconf libtool pkg
 
 ADD src/ /
 
-# Prepare for non-root build
-RUN chmod -R a=rwX /mod_auth_gssapi
+RUN cd /mod_auth_gssapi \
+	&& autoreconf -fi \
+	&& mkdir /mod_auth_gssapi_build \
+	&& cd /mod_auth_gssapi_build \
+	&& /mod_auth_gssapi/configure \
+	&& make -j$(nproc)
 
-COPY build.sh /build.sh
-ENTRYPOINT ["/build.sh"]
+COPY install.sh /install.sh
 
 VOLUME /target
+ENTRYPOINT ["/install.sh"]
