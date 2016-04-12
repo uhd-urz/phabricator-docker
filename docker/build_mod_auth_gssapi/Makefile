@@ -1,10 +1,14 @@
-override VERSION:=$(shell env GIT_DIR=../../source/mod_auth_gssapi/.git git describe --tags)
-
-ifeq ($(VERSION),)
-$(error Specify VERSION)
-else
-$(info Building $(VERSION))
+PACKAGE:=build_mod_auth_gssapi
+ifdef DOCKER_USERNAME
+PACKAGE:=$(DOCKER_USERNAME)/$(PACKAGE)
 endif
+
+MOD_AUTH_GSSAPI_VERSION:=$(shell env GIT_DIR=../../source/mod_auth_gssapi/.git git describe --tags)
+ifeq ($(MOD_AUTH_GSSAPI_VERSION),)
+$(error Unable to determine MOD_AUTH_GSSAPI_VERSION)
+endif
+
+$(info Building $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION) ...)
 
 ifeq ($(UID),)
 UID:=$(shell id -u)
@@ -14,14 +18,19 @@ ifeq ($(GID),)
 GID:=$(shell id -g)
 endif
 
-all: build
+BUILD_IF_IMAGE_UNAVAILABLE:=$(shell docker pull $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION) > /dev/null 2> /dev/null || echo build)
 
-build: src/mod_auth_gssapi target
-	docker build --tag=devurandom/build_mod_auth_gssapi:$(VERSION) .
-	docker run --user $(UID):$(GID) --volume=$(CURDIR)/target:/target devurandom/build_mod_auth_gssapi:$(VERSION)
+all: run
+
+run: target $(BUILD_IF_IMAGE_UNAVAILABLE)
+	docker run --user $(UID):$(GID) --volume=$(CURDIR)/target:/target $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION)
+
+build: src/mod_auth_gssapi
+	docker build --tag=$(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION) .
+	docker push $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION)
 
 clean:
-	rm -fr src target
+	$(RM) -r src target
 
 target:
 	mkdir target
@@ -30,11 +39,11 @@ src:
 	mkdir src
 
 # Some hack to make make really run this rule whenever ../../source/mod_auth_gssapi changes
-src/%: src/%@$(VERSION)
-	ln -sfn $*@$(VERSION) $@
+src/%: src/%@$(MOD_AUTH_GSSAPI_VERSION)
+	ln -sfn $*@$(MOD_AUTH_GSSAPI_VERSION) $@
 
-src/%@$(VERSION): ../../source/% src
+src/%@$(MOD_AUTH_GSSAPI_VERSION): ../../source/% src
 	rsync -av --delete --exclude=.git $</ $@/
 
 .PHONY: all build clean
-.SECONDARY: src/mod_auth_gssapi@$(VERSION)
+.SECONDARY: src/mod_auth_gssapi@$(MOD_AUTH_GSSAPI_VERSION)
