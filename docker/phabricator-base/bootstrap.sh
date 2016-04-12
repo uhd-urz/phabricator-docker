@@ -19,9 +19,12 @@ cp /srv/phabricator/config/* conf/local/
 echo ">> Bootstrapping local configuration ..."
 ./bin/config set mysql.host "${MYSQL_HOST:-localhost}"
 ./bin/config set mysql.port "${MYSQL_PORT:-3306}"
-./bin/config set mysql.pass "${MYSQL_PASSWORD}"
 ./bin/config set mysql.user "${MYSQL_USER}"
+./bin/config set mysql.pass "${MYSQL_PASSWORD}"
 ./bin/config set storage.default-namespace "${MYSQL_NAMESPACE:-phabricator}"
+
+echo ">> Configuration:"
+cat conf/local/local.json
 
 echo ">> Upgrading database ..."
 ./bin/storage upgrade --force
