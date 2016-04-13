@@ -24,3 +24,5 @@ $(SUBDIRS_CLEAN): %@clean:
 	$(MAKE) -C $* clean
 
 .PHONY: all build push clean $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH) $(SUBDIRS_CLEAN)
+
+phabricator-fpm phabricator-phd: phabricator-base
