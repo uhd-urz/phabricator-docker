@@ -6,16 +6,23 @@ SUBDIRS_BUILD:=$(patsubst %,%@build,$(SUBDIRS))
 
 build: $(SUBDIRS_BUILD)
 
-$(SUBDIRS_BUILD):
-	$(MAKE) -C $(subst @build,,$@) build
+$(SUBDIRS_BUILD): %@build:
+	$(MAKE) -C $* build
 
 SUBDIRS_PUSH:=$(patsubst %,%@push,$(SUBDIRS))
 
 push: $(SUBDIRS_PUSH)
 
-$(SUBDIRS_PUSH):
-	$(MAKE) -C $(subst @push,,$@) push
+$(SUBDIRS_PUSH): %@push:
+	$(MAKE) -C $* push
 
-.PHONY: $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH)
+SUBDIRS_CLEAN:=$(patsubst %,%@clean,$(SUBDIRS))
+
+clean: $(SUBDIRS_CLEAN)
+
+$(SUBDIRS_CLEAN): %@clean:
+	$(MAKE) -C $* clean
+
+.PHONY: all build push clean $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH) $(SUBDIRS_CLEAN)
 
 -include Makefile.local

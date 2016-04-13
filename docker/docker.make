@@ -44,4 +44,6 @@ endif
 push:
 	docker push $(PACKAGE)
 
-.PHONY: build push
+clean:
+
+.PHONY: build push clean
