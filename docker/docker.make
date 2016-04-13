@@ -1,10 +1,22 @@
 ifdef DOCKER_USERNAME
 PACKAGE:=$(DOCKER_USERNAME)/$(PACKAGE)
+else
+$(error You need to set DOCKER_USERNAME!)
 endif
 
 include $(TOPDIR)/docker/version.make
 
-build: $(DEPENDENCIES)
+ifndef COMMIT
+$(error Unable to determine latest commit!)
+endif
+
+Dockerfile: Dockerfile.in
+	cp $< $@
+	sed -ri $@ \
+		-e "s/@COMMIT@/$(COMMIT)/" \
+		-e "s/@DOCKER_USERNAME@/$(DOCKER_USERNAME)/"
+
+build: Dockerfile $(DEPENDENCIES)
 	docker build --tag=$(PACKAGE):latest .
 ifdef BRANCH
 	# git-branch -> docker-tag
@@ -23,5 +35,6 @@ push:
 	docker push $(PACKAGE)
 
 clean:
+	$(RM) Dockerfile
 
-.PHONY: build push clean
+.PHONY: build push clean Dockerfile

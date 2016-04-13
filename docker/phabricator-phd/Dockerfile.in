@@ -1,4 +1,4 @@
-FROM urzds/phabricator-base
+FROM @DOCKER_USERNAME@/phabricator-base:@COMMIT@
 MAINTAINER Dennis Schridde <dennis.schridde@uni-heidelberg.de>
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -25,7 +25,10 @@ all: run
 run: target $(BUILD_IF_IMAGE_UNAVAILABLE)
 	docker run --user $(UID):$(GID) --volume=$(CURDIR)/target:/target $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION)
 
-build: src/mod_auth_gssapi
+Dockerfile: Dockerfile.in
+	cp $< $@
+
+build: Dockerfile src/mod_auth_gssapi
 	docker build --tag=$(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION) .
 	docker push $(PACKAGE):$(MOD_AUTH_GSSAPI_VERSION)
 
