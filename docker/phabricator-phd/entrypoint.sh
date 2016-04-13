@@ -28,8 +28,7 @@ if [ "$1" = ./bin/phd ] ; then
 	pid="$(echo /var/tmp/phd/pid/daemon.* | sed 's/^.*daemon\.//')"
 
 	echo ">> Running watchdog ..."
-	while true ; do
-		kill -0 "${pid}" || break
+	while kill -0 "${pid}" ; do
 		sleep 10
 	done
 else
