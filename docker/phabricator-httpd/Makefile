@@ -1,6 +1,7 @@
 PACKAGE:=phabricator-httpd
 DEPENDENCIES:=mod_auth_gssapi conf/mods-available/auth_gssapi.load webroot webroot/rsrc/sprint
 
+TOPDIR:=../..
 include ../docker.make
 
 
