@@ -1,0 +1,16 @@
+FROM @DOCKER_USERNAME@/phabricator-base:@COMMIT@
+MAINTAINER Dennis Schridde <dennis.schridde@uni-heidelberg.de>
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get -y update && apt-get -y install node-ws
+
+RUN useradd -m -d /var/lib/aphlict aphlict
+
+WORKDIR /opt/phabricator/phabricator/
+
+COPY entrypoint.sh /entrypoint.sh
+
+EXPOSE 22280 22281
+USER aphlict
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["debug", "--client-host=0.0.0.0", "--client-port=22280"]

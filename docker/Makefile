@@ -1,4 +1,4 @@
-SUBDIRS:=phabricator-mysql phabricator-httpd phabricator-base phabricator-fpm phabricator-phd
+SUBDIRS:=phabricator-mysql phabricator-httpd phabricator-base phabricator-fpm phabricator-phd phabricator-aphlict
 
 all: build
 
@@ -25,4 +25,4 @@ $(SUBDIRS_CLEAN): %@clean:
 
 .PHONY: all build push clean $(SUBDIRS) $(SUBDIRS_BUILD) $(SUBDIRS_PUSH) $(SUBDIRS_CLEAN)
 
-phabricator-fpm phabricator-phd: phabricator-base
+phabricator-fpm phabricator-phd phabricator-aphlict: phabricator-base
