@@ -22,7 +22,7 @@ conf:
 	mkdir $@
 
 webroot: ../../source/phabricator/webroot
-	rsync -av --delete $</ $@/
+	rsync -a --delete $</ $@/
 
 webroot/rsrc/sprint: ../../source/phabricator-extensions-sprint/rsrc webroot
-	rsync -av --delete $</ $@/
+	rsync -a --delete $</ $@/

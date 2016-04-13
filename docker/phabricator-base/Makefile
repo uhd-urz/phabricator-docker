@@ -8,7 +8,7 @@ src:
 	mkdir src
 
 src/%: ../../source/% src
-	rsync -av --delete --exclude=.git $</ $@/
+	rsync -a --delete --exclude=.git $</ $@/
 
 src/phabricator/src/extensions: ../../source/phabricator-extensions-urz
-	rsync -av --delete --exclude=.git $</ $@/
+	rsync -a --delete --exclude=.git $</ $@/
