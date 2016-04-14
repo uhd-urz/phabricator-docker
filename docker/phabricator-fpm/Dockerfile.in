@@ -6,6 +6,8 @@ RUN apt-get -y update \
 	&& apt-get -y install php5-fpm python-pygments \
 	&& sed -i /etc/php5/fpm/php.ini \
 		-e '/^post_max_size/s,=.*$,= 64M,' \
+		-e '/^;daemonize/a \ \
+			daemonize = no' \
 		-e '/^;date.timezone/a \ \
 			date.timezone = "Europe/Berlin"' \
 		-e '/^;opcache.validate_timestamps/a \ \
