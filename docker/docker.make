@@ -10,6 +10,8 @@ ifndef COMMIT
 $(error Unable to determine latest commit!)
 endif
 
+all: build
+
 Dockerfile: Dockerfile.in
 	cp $< $@
 	sed -ri $@ \
